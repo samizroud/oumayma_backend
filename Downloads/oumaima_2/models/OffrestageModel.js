@@ -6,7 +6,8 @@ const offreStageSchema = new mongoose.Schema({
   description: { type: String, required: true },
   technologies: [{ type: String }],
   encadrant: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  candidatures: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Candidature' }]
+  candidatures: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Candidature' }],
+  status: { type: String, enum: ['active', 'expired', 'closed'], default: 'active' }
 });
 
 const OffreStage = mongoose.model("OffreStage", offreStageSchema);

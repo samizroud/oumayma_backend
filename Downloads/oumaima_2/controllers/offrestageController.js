@@ -121,3 +121,36 @@ exports.removeCandidatureFromOffreStage = catchAsync(async (req, res, next) => {
     message: "Candidature retirée de l'offre de stage avec succès",
   });
 });
+// Mettre à jour le statut d'une offre de stage
+exports.updateOffreStageStatus = catchAsync(async (req, res, next) => {
+  const { offreStageId, newStatus } = req.params;
+
+  const offreStage = await OffreStage.findById(offreStageId);
+  if (!offreStage) {
+    return next(new AppError('Offre de stage non trouvée', 404));
+  }
+
+  offreStage.status = newStatus;
+  await offreStage.save();
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      offreStage
+    }
+  });
+});
+
+// Obtenir les offres de stage par statut
+exports.getOffresStageByStatus = catchAsync(async (req, res, next) => {
+  const { status } = req.params;
+
+  const offresStage = await OffreStage.find({ status });
+  res.status(200).json({
+    status: 'success',
+    data: {
+      offresStage
+    }
+  });
+});
+

@@ -85,3 +85,11 @@ exports.getStagiairesAcceptes = catchAsync(async (req, res, next) => {
   const stagiairesAcceptes = await Candidature.find({ status: 'accepted' }).populate('stagiaire', 'fullName email');
   res.status(200).json({ status: 'success', data: { stagiairesAcceptes } });
 });
+//historique des stagiaires acceptes
+exports.getHistoriqueStagiairesAcceptes = catchAsync(async (req, res, next) => {
+  const historiqueStagiairesAcceptes = await Candidature.find({ status: 'accepted' })
+    .populate('stagiaire', 'fullName email')
+    .select('stagiaire'); // Sélectionnez les champs que vous souhaitez inclure dans l'historique
+
+  res.status(200).json({ status: 'success', data: { historiqueStagiairesAcceptes } });
+});

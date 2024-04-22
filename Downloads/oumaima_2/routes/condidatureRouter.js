@@ -17,5 +17,7 @@ router.get("/", CandidatureController.getAllCandidatures);
 // Obtenir la liste des stagiaires acceptés
 router.get("/accepted", CandidatureController.getStagiairesAcceptes);
 
+router.get("/historique/stagiaires-acceptes", CandidatureController.getHistoriqueStagiairesAcceptes);
+
 module.exports = router;
 
