@@ -32,6 +32,7 @@ const tacheRouter = require("./routes/tacheRouter");
 const labRouter = require("./routes/labRouter");
 //const rapportRouter = require("./routes/rapportRouter");
 const attestationRouter = require("./routes/attestationRouter");
+const calendrierRouter = require("./routes/calendrierRouter");
 //------------------------------
 app.use(cors());
 app.use(xss());
@@ -78,7 +79,7 @@ app.use("/api/v1/taches", tacheRouter);
 app.use("/api/v1/labs", labRouter);
 //app.use("/api/v1/rapports", rapportRouter);
 app.use("/api/v1/attestations", attestationRouter);
-
+app.use("/api/v1/calendrier", calendrierRouter);
 
 
 
