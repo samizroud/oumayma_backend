@@ -15,8 +15,14 @@ const candidatureSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  offreStage: { // id de l'offre de stage
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'OffreStage',
+    required: true,
+  },
 });
 
 const Candidature = mongoose.model("Candidature", candidatureSchema);
 
 module.exports = Candidature;
+

@@ -6,7 +6,7 @@ const AppError = require('../utils/appError');
 
 // Créer une nouvelle candidature
 exports.createCandidature = catchAsync(async (req, res, next) => {
-  const { stagiaireId } = req.body;
+  const { stagiaireId, offreStageId } = req.body; // Récupérer également l'ID de l'offre de stage depuis le corps de la requête
 
   // Vérifier si l'utilisateur existe
   const stagiaire = await User.findById(stagiaireId);
@@ -14,8 +14,8 @@ exports.createCandidature = catchAsync(async (req, res, next) => {
     return next(new AppError("Stagiaire non trouvé.", 404));
   }
 
-  // Créer la candidature
-  const candidature = await Candidature.create({ stagiaire: stagiaireId });
+  // Créer la candidature avec l'ID de l'offre de stage
+  const candidature = await Candidature.create({ stagiaire: stagiaireId, offreStage: offreStageId });
 
   res.status(201).json({ status: 'success', data: { candidature } });
 });
@@ -85,11 +85,12 @@ exports.getStagiairesAcceptes = catchAsync(async (req, res, next) => {
   const stagiairesAcceptes = await Candidature.find({ status: 'accepted' }).populate('stagiaire', 'fullName email');
   res.status(200).json({ status: 'success', data: { stagiairesAcceptes } });
 });
-//historique des stagiaires acceptes
+
+// Historique des stagiaires acceptés
 exports.getHistoriqueStagiairesAcceptes = catchAsync(async (req, res, next) => {
   const historiqueStagiairesAcceptes = await Candidature.find({ status: 'accepted' })
     .populate('stagiaire', 'fullName email')
-    .select('stagiaire'); // Sélectionnez les champs que vous souhaitez inclure dans l'historique
+    .select('stagiaire offreStage'); // Sélectionnez les champs que vous souhaitez inclure dans l'historique
 
   res.status(200).json({ status: 'success', data: { historiqueStagiairesAcceptes } });
 });

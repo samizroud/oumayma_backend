@@ -12,7 +12,7 @@ const profilSchema = new mongoose.Schema({
   dateOfBirth: { type: Date },
   address: { type: String },
   department: { type: String },
-  gender: { type: String, enum: ['MALE', 'FEMALE', 'OTHER'] },
+  gender: { type: String, enum: ['MALE', 'FEMALE',] },
   isEnabled: { type: Boolean, default: true },
   cv: { type: mongoose.Schema.Types.ObjectId, ref: 'CV' },
   creationDate: { type: Date, default: Date.now() }
