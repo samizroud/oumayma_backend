@@ -5,8 +5,8 @@ const taskSchema = new mongoose.Schema({
   description: { type: String, required: true },
   title: { type: String, required: true },
   status: { type: String, enum: ['Todo', 'In Progress', 'Done'], default: 'Todo' },
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  offreStageId: { type: mongoose.Schema.Types.ObjectId, ref: 'OffreStage', required: true } 
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false },
+  offreStageId: { type: mongoose.Schema.Types.ObjectId, ref: 'OffreStage', required: false } 
 });
 
 const Task = mongoose.model('Task', taskSchema);

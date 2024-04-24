@@ -1,5 +1,6 @@
 require('dotenv').config(); // Charger les variables d'environnement depuis le fichier .env
 
+const { text } = require('express');
 const nodemailer = require('nodemailer');
 
 const sendEmail = async (options) => {
@@ -7,17 +8,17 @@ const sendEmail = async (options) => {
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
     auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
+      user: "oumaimayari9@gmail.com",
+      pass: "arkb tsug qvqi ayrk"
     }
   });
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
-    to: options.email,
-    subject: options.subject,
-    text: options.message,
-    attachments: options.attachments
+    to: process.env.EMAIL_USER,
+    subject:Option.subject,
+    text: Option.message,
+    
   };
 
   try {

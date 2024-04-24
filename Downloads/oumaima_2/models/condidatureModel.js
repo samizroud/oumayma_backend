@@ -18,7 +18,7 @@ const candidatureSchema = new mongoose.Schema({
   offreStage: { // id de l'offre de stage
     type: mongoose.Schema.Types.ObjectId,
     ref: 'OffreStage',
-    required: true,
+    required: false,
   },
 });
 

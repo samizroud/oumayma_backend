@@ -1,18 +1,20 @@
 const Attestation = require('../models/attestationModel');
+const path = require('path');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
 // Contrôleur pour créer une attestation et l'enregistrer dans la base de données
 exports.createAttestation = catchAsync(async (req, res, next) => {
   try {
-    const { studentName, companyName, startDate, endDate } = req.body;
+    const { studentName, companyName, startDate, endDate, fileName } = req.body;
 
     // Créer une nouvelle attestation et l'enregistrer dans la base de données
     const newAttestation = await Attestation.create({
       studentName,
       companyName,
       startDate,
-      endDate
+      endDate,
+      fileName
     });
 
     res.status(201).json({ message: 'Attestation générée avec succès', attestation: newAttestation });
@@ -22,7 +24,6 @@ exports.createAttestation = catchAsync(async (req, res, next) => {
   }
 });
 
-// Contrôleur pour récupérer une attestation par son ID et renvoyer le lien de téléchargement
 exports.downloadAttestation = catchAsync(async (req, res, next) => {
   try {
     const attestation = await Attestation.findById(req.params.id);
@@ -30,9 +31,19 @@ exports.downloadAttestation = catchAsync(async (req, res, next) => {
       return res.status(404).json({ message: "Attestation non trouvée" });
     }
 
-    // Dans cet exemple, nous supposons que le chemin du fichier PDF est stocké dans l'objet d'attestation
-    const filePath = attestation.filePath;
-    res.download(filePath); // Envoi du fichier PDF en tant que téléchargement
+    // Supposons que le nom du fichier est stocké dans l'objet d'attestation sous la clé "fileName"
+    const fileName = attestation.fileName;
+
+    // Vérifier si le nom du fichier existe
+    if (!fileName) {
+      return res.status(404).json({ message: "Nom du fichier non trouvé dans l'attestation" });
+    }
+
+    // Construire le chemin complet du fichier à télécharger en utilisant path.join()
+    const filePath = path.join(__dirname, "uploads", fileName);
+
+    // Télécharger le fichier en tant que téléchargement
+    res.download(filePath); 
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Erreur lors du téléchargement de l'attestation" });

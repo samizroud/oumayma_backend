@@ -43,7 +43,7 @@ exports.acceptCandidature = catchAsync(async (req, res, next) => {
     }
 
     const message = `Bonjour ${assistant.fullName}, une nouvelle candidature a été acceptée. Veuillez contacter le stagiaire ${updatedCandidature.stagiaire.fullName} (${updatedCandidature.stagiaire.email}) pour organiser un entretien.`;
-    await sendEmail(assistant.email, 'Candidature Acceptée', message);
+    await sendEmail({ to: assistant.email, subject: 'Candidature Acceptée', message });
 
     // Marquer l'assistant comme notifié
     updatedCandidature.assistantNotified = true;
