@@ -5,7 +5,7 @@ const attestationSchema = new mongoose.Schema({
   companyName: { type: String, required: true },
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
-  fileName: { type: String, required: false }
+  fileName: { type: String, required: true }
 });
 
 const Attestation = mongoose.model("Attestation", attestationSchema);

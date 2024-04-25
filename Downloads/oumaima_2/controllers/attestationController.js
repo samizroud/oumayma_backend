@@ -24,28 +24,26 @@ exports.createAttestation = catchAsync(async (req, res, next) => {
   }
 });
 
-exports.downloadAttestation = catchAsync(async (req, res, next) => {
+exports.getAttestation = catchAsync(async (req, res, next) => {
   try {
     const attestation = await Attestation.findById(req.params.id);
     if (!attestation) {
       return res.status(404).json({ message: "Attestation non trouvée" });
     }
 
-    // Supposons que le nom du fichier est stocké dans l'objet d'attestation sous la clé "fileName"
     const fileName = attestation.fileName;
 
-    // Vérifier si le nom du fichier existe
     if (!fileName) {
       return res.status(404).json({ message: "Nom du fichier non trouvé dans l'attestation" });
     }
 
-    // Construire le chemin complet du fichier à télécharger en utilisant path.join()
-    const filePath = path.join(__dirname, "uploads", fileName);
+    const filePath = path.join(__dirname, "..", "..", "uploads", fileName);
 
-    // Télécharger le fichier en tant que téléchargement
-    res.download(filePath); 
+    // Au lieu de télécharger le fichier, renvoyez un message et le chemin du fichier
+    res.status(200).json({ message: "L'attestation est disponible pour téléchargement", filePath: filePath });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Erreur lors du téléchargement de l'attestation" });
+    res.status(500).json({ message: "Erreur lors de la récupération de l'attestation" });
   }
 });
+

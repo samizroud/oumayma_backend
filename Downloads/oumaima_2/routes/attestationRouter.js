@@ -7,6 +7,6 @@ const router = express.Router();
 router.post("/", attestationController.createAttestation);
 
 // Point de terminaison pour télécharger une attestation par son ID
-router.get("/:id/download", attestationController.downloadAttestation);
+router.get("/:id/download", attestationController.getAttestation);
 
 module.exports = router;

@@ -1,12 +1,21 @@
 const mongoose = require('mongoose');
 
-const rapportSchema = new mongoose.Schema({
-  filename: { type: String, required: true }, 
-  originalname: { type: String, required: true }, 
-  uploader: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, 
-  uploadedAt: { type: Date, default: Date.now }
+const reportSchema = new mongoose.Schema({
+  fileName: {
+    type: String,
+    required: true,
+  },
+  filePath: {
+    type: String,
+    required: true,
+  },
+  uploadedAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-const Rapport = mongoose.model("Rapport", rapportSchema);
+const Report = mongoose.model("Report", reportSchema);
 
-module.exports = Rapport;
+module.exports = Report;
+

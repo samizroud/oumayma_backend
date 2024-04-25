@@ -12,14 +12,15 @@ const sendEmail = async (options) => {
       pass: "arkb tsug qvqi ayrk"
     }
   });
-
+  
   const mailOptions = {
     from: process.env.EMAIL_USER,
-    to: process.env.EMAIL_USER,
-    subject:Option.subject,
-    text: Option.message,
-    
+    to:"oumaimayari9@gmail.com", // Utilisation de l'option 'to' fournie
+    subject: "candidature acceptée", // Utilisation de l'option 'subject' fournie
+    text: "Ce candidat est accepté "
   };
+  
+
 
   try {
     const info = await transporter.sendMail(mailOptions);
